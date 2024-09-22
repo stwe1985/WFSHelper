@@ -1,0 +1,20 @@
+{
+  "name": "wfs",
+  "version": "1.0.0",
+  "main": "wfsurl.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/qunit": "^2.19.10",
+    "qunit": "^2.22.0"
+  }
+}
