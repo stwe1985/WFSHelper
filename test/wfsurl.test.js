@@ -18,19 +18,32 @@ QUnit.module("WFS Tests", function() {
         assert.equal(wfsurl.url.pathname, "/test");
     });
 
+    let wfsurlcomplete = new WFSUrl("https://gdi.berlin.de/services/wfs/adressen_berlin");
+    wfsurlcomplete.setCapabilitiesURL("1.1.0");
 
     QUnit.test("Test WFS Url", function(assert) {
-        let wfsurlcomplete = new WFSUrl("https://gdi.berlin.de/services/wfs/adressen_berlin");
-        wfsurlcomplete.setCapabilitiesURL("2.0");
-        assert.equal(wfsurlcomplete.getWFSUrl().toLowerCase(), "https://gdi.berlin.de/services/wfs/adressen_berlin?SERVICE=wfs&REQUEST=GetCapabilities&version=2.0".toLowerCase());
+        
+        
+        assert.equal(wfsurlcomplete.getWFSUrl().toLowerCase(), "https://gdi.berlin.de/services/wfs/adressen_berlin?SERVICE=wfs&REQUEST=GetCapabilities&version=1.1.0".toLowerCase());
     });
 
     QUnit.test("Test getCapabilities Ressources", function(assert) {
         const done = assert.async();
 
-        wfsurl.getCapabilities(["Content-Type", "application/json"]).then( function(response) {
+        wfsurlcomplete.getCapabilities({
+            method: "GET",
+        }).then( function(response) {
             assert.equal(response.status, "200");
             assert.equal(typeof(response), "object");
+            assert.equal(response.headers.has("Content-Type"), true);
+
+            response.text().then(function(data) {
+                let con = new DOMParser();
+                const obj = con.parseFromString(data, "application/xml");
+                console.log(obj.querySelector("Operation").attributes);
+            });
+
+
             done();
         });
     })

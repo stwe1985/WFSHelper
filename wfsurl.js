@@ -2,6 +2,7 @@ export default class WFSUrl{
     static AND = "&";
     static END = "/";
 
+
     constructor(geoHost = new String()) {
         this.url = new URL(geoHost);
         this.service = "WFS";
@@ -9,7 +10,7 @@ export default class WFSUrl{
         this.request = this.operation;
         this.version = new String();
         this.url.search +=
-        this.setQuery("service", this.service);
+        this.setQuery("service", this.service)
     }
 
     setCapabilitiesURL(version = new String()) {
@@ -20,9 +21,8 @@ export default class WFSUrl{
         + this.setQuery("version", this.version, WFSUrl.AND);
     }
 
-    getCapabilities(headers = []) {
-        header.append(new Headers(headers));
-        return fetch(this.url.href);
+    getCapabilities(requestInit = {}) {
+        return fetch(this.url.href, requestInit);
     }
 
     getWFSUrl() {
