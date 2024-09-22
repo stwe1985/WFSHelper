@@ -12,12 +12,17 @@ export default class WFSUrl{
         this.setQuery("service", this.service);
     }
 
-    getCapabilities(version = new String()) {
+    setCapabilitiesURL(version = new String()) {
         this.operation = "getCapabilities";
         this.request = this.operation;
         this.version = version;
         this.url.search += this.setQuery("request", this.request, WFSUrl.AND)
         + this.setQuery("version", this.version, WFSUrl.AND);
+    }
+
+    getCapabilities(headers = []) {
+        header.append(new Headers(headers));
+        return fetch(this.url.href);
     }
 
     getWFSUrl() {
