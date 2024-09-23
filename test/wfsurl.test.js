@@ -40,7 +40,7 @@ QUnit.module("WFS Tests", function() {
             response.text().then(function(data) {
                 let con = new DOMParser();
                 const obj = con.parseFromString(data, "application/xml");
-                console.log(obj.querySelector("Operation").attributes);
+                console.log(obj.querySelector("Operation").childNodes);
             });
 
 
